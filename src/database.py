@@ -32,14 +32,14 @@ def create_tables():
         )
     """
     )
-    
+
     # Create the transactions table
     cursor.execute(
         """
         CREATE TABLE IF NOT EXISTS transactions (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             date TEXT NOT NULL,
-            description TEXT NOT NULL,
+            description TEXT,
             amount REAL NOT NULL,
             type TEXT NOT NULL,
             category TEXT,
@@ -59,8 +59,11 @@ def close_connection(conn: sqlite3.Connection, exception: typer.Exit):
 def get_distinct_categories(incomplete: str):
     conn = get_db_connection()
     cursor = conn.cursor()
-    cursor.execute("SELECT DISTINCT category FROM budget_items WHERE category LIKE ?", (f"%{incomplete}%",))
-    categories = [row['category'] for row in cursor.fetchall()]
+    cursor.execute(
+        "SELECT DISTINCT category FROM budget_items WHERE category LIKE ?",
+        (f"%{incomplete}%",),
+    )
+    categories = [row["category"] for row in cursor.fetchall()]
     conn.close()
     return categories
 
@@ -68,8 +71,10 @@ def get_distinct_categories(incomplete: str):
 def get_distinct_accounts(incomplete: str):
     conn = get_db_connection()
     cursor = conn.cursor()
-    cursor.execute("SELECT DISTINCT account FROM transactions WHERE account LIKE ?", (f"%{incomplete}%",))
-    accounts = [row['account'] for row in cursor.fetchall()]
+    cursor.execute(
+        "SELECT DISTINCT account FROM transactions WHERE account LIKE ?",
+        (f"%{incomplete}%",),
+    )
+    accounts = [row["account"] for row in cursor.fetchall()]
     conn.close()
     return accounts
-

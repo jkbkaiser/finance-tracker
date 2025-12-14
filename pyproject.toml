@@ -10,3 +10,17 @@ dependencies = [
 
 [project.scripts]
 finances = "main:main"
+
+[tool.ruff]
+line-length = 88
+target-version = "py313"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]
+
+[tool.ruff.format]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.14.9",
+]
