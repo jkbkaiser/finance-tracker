@@ -17,6 +17,7 @@ class TransactionType(str, Enum):
     INCOME = "Income"
     EXPENSE = "Expense"
     TRANSFER = "Transfer"
+    SAVINGS = "Savings" # New entry
 
 
 transactions_app = typer.Typer()
@@ -226,6 +227,8 @@ def summarize_transactions(
             color = typer.colors.RED
         elif t["type"] == TransactionType.TRANSFER.value:
             color = typer.colors.BLUE
+        elif t["type"] == TransactionType.SAVINGS.value:
+            color = typer.colors.CYAN
 
         cat = t["category"] if t["category"] else "N/A"
         desc = t["description"] if t["description"] else "N/A"

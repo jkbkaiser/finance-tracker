@@ -47,6 +47,30 @@ def create_tables():
         )
     """
     )
+    
+    # Create the targets_items table
+    cursor.execute(
+        """
+        CREATE TABLE IF NOT EXISTS targets_items (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            item_name TEXT NOT NULL,
+            price REAL NOT NULL,
+            priority INTEGER DEFAULT 1,
+            purchased INTEGER DEFAULT 0
+        )
+    """
+    )
+    
+    # Create the investment_snapshots table
+    cursor.execute(
+        """
+        CREATE TABLE IF NOT EXISTS investment_snapshots (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            snapshot_date TEXT NOT NULL UNIQUE,
+            amount REAL NOT NULL
+        )
+    """
+    )
     conn.commit()
     conn.close()
 
